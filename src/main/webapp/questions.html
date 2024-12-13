@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Form</title>
+</head>
+<body>
+<h1>MCQ Form</h1>
+<form id="mcqForm">
+    <div class="question">
+        <p>1. What is the capital of France?</p>
+        <div class="options">
+            <label><input type="radio" name="q1" value="a"> Paris</label><br>
+            <label><input type="radio" name="q1" value="b"> London</label><br>
+            <label><input type="radio" name="q1" value="c"> Berlin</label>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>2. What is 5 + 3?</p>
+        <div class="options">
+            <label><input type="radio" name="q2" value="a"> 7</label><br>
+            <label><input type="radio" name="q2" value="b"> 8</label><br>
+            <label><input type="radio" name="q2" value="c"> 9</label>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>3. What is the largest planet in our solar system?</p>
+        <div class="options">
+            <label><input type="radio" name="q3" value="a"> Earth</label><br>
+            <label><input type="radio" name="q3" value="b"> Jupiter</label><br>
+            <label><input type="radio" name="q3" value="c"> Saturn</label>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>4. What is the chemical symbol for water?</p>
+        <div class="options">
+            <label><input type="radio" name="q4" value="a"> H2O</label><br>
+            <label><input type="radio" name="q4" value="b"> CO2</label><br>
+            <label><input type="radio" name="q4" value="c"> O2</label>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>5. Who wrote "Romeo and Juliet"?</p>
+        <div class="options">
+            <label><input type="radio" name="q5" value="a"> Charles Dickens</label><br>
+            <label><input type="radio" name="q5" value="b"> William Shakespeare</label><br>
+            <label><input type="radio" name="q5" value="c"> Mark Twain</label>
+        </div>
+    </div>
+
+    <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+</form>
+
+<script>
+    function submitForm() {
+        const form = document.getElementById('mcqForm');
+        const formData = new FormData(form);
+        let unanswered = false;
+        let result = '';
+        let score = 0;
+
+        const correctAnswers = {
+            q1: 'a',
+            q2: 'b',
+            q3: 'b',
+            q4: 'a',
+            q5: 'b'
+        };
+
+        for (let i = 1; i <= 5; i++) {
+            const answer = formData.get(`q${i}`);
+            if (!answer) {
+                unanswered = true;
+                result += `Question ${i} is unanswered.\n`;
+            } else {
+                result += `Question ${i}: ${answer}\n`;
+                if (answer === correctAnswers[`q${i}`]) {
+                    score += 2;
+                }
+            }
+        }
+
+        if (unanswered) {
+            alert('Please answer all questions before submitting.');
+        } else {
+            result += `\nYour total score: ${score} / 10`;
+            alert(`Your answers:\n${result}`);
+        }
+    }
+</script>
+</body>
+</html>
